@@ -9,6 +9,13 @@ import { notification } from 'antd'
 const Cart = () => {
     const dispatch = useDispatch()
 
+    const cutting = (text, limit)=> {
+        if (text.length > limit ) {
+          return text.slice(0, limit)
+        }
+        return text
+      }
+
     const cartProducts = useSelector(state => state.cart.products)
 
     const handleAddProduct = (product) => {
@@ -43,7 +50,7 @@ const Cart = () => {
                 <div className="product-info">
                     <h2>{product.title}</h2>
                     <p>{product.description}</p>
-                    <strong>${product.quantity * product.price}</strong>
+                    <strong>$ {cutting(`${product.quantity * (product.price + product.price * 0.12)}` , 5)} (with 12% QQS)</strong>
                     <div className="quantity">
                         <button onClick={() => handleRemoveProduct(product)}>-</button>
                         <span>{product.quantity}</span>
